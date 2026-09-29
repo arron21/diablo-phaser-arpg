@@ -1,0 +1,21 @@
+{
+  "name": "diablo-phaser-arpg",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Classic dark fantasy Action RPG inspired by Diablo (1996) built with Phaser 3 and TypeScript",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "phaser": "^3.88.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0",
+    "vitest": "^5.0.2"
+  }
+}
