@@ -183,5 +183,6 @@ export class TitleScene extends Phaser.Scene {
   private startGame(): void {
     this.scene.start('TownScene', { classType: this.selectedClass });
     this.scene.launch('UIScene', { classType: this.selectedClass });
+    this.scene.bringToTop('UIScene');
   }
 }

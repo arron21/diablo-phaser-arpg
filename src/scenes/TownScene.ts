@@ -115,8 +115,10 @@ export class TownScene extends Phaser.Scene {
       ui.stats = this.stats;
       ui.inventory = this.inventory;
       ui.paperdoll = this.paperdoll;
-      ui.updateHUDValues();
-      ui.refreshInventoryUI();
+      if (ui.isReady()) {
+        ui.updateHUDValues();
+        ui.refreshInventoryUI();
+      }
     }
   }
 

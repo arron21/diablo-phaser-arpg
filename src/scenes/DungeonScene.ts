@@ -131,8 +131,10 @@ export class DungeonScene extends Phaser.Scene {
       ui.stats = this.stats;
       ui.inventory = this.inventory;
       ui.paperdoll = this.paperdoll;
-      ui.updateHUDValues();
-      ui.refreshInventoryUI();
+      if (ui.isReady()) {
+        ui.updateHUDValues();
+        ui.refreshInventoryUI();
+      }
 
       // Listen for Town Portal spell
       ui.events.off('open_town_portal');

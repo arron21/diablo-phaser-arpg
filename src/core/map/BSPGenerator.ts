@@ -201,7 +201,7 @@ export class BSPGenerator {
 
     // 7. Floor 2 Special: The Butcher's Lair
     let butcherSpawn: { x: number; y: number } | undefined;
-    if (floorLevel === 2 && rooms.length >= 3) {
+    if (floorLevel === 2 && rooms.length >= 2) {
       const butcherRoom = rooms[1];
       butcherRoom.isButcherRoom = true;
       butcherSpawn = { x: butcherRoom.centerX, y: butcherRoom.centerY };

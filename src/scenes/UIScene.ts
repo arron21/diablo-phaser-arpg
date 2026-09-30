@@ -103,6 +103,22 @@ export class UIScene extends Phaser.Scene {
         this.refreshInventoryUI();
       }
     });
+
+    // 6. Connect stats with active gameplay scene if already running
+    const town = this.scene.get('TownScene') as any;
+    const dungeon = this.scene.get('DungeonScene') as any;
+    if (town && town.stats) {
+      this.stats = town.stats;
+      this.inventory = town.inventory;
+      this.paperdoll = town.paperdoll;
+    } else if (dungeon && dungeon.stats) {
+      this.stats = dungeon.stats;
+      this.inventory = dungeon.inventory;
+      this.paperdoll = dungeon.paperdoll;
+    }
+
+    this.updateHUDValues();
+    this.refreshInventoryUI();
   }
 
   // ==========================================
@@ -209,24 +225,32 @@ export class UIScene extends Phaser.Scene {
     });
   }
 
+  public isReady(): boolean {
+    return !!this.lifeText;
+  }
+
   public updateHUDValues(): void {
-    if (!this.stats) return;
+    if (!this.stats || !this.lifeText) return;
 
     this.lifeText.setText(`${this.stats.currentHp}/${this.stats.totalMaxHp}`);
-    this.manaText.setText(`${this.stats.currentMp}/${this.stats.totalMaxMp}`);
-    this.levelText.setText(`Level: ${this.stats.level}`);
-    this.goldText.setText(`Gold: ${this.stats.gold}`);
+    if (this.manaText) this.manaText.setText(`${this.stats.currentMp}/${this.stats.totalMaxMp}`);
+    if (this.levelText) this.levelText.setText(`Level: ${this.stats.level}`);
+    if (this.goldText) this.goldText.setText(`Gold: ${this.stats.gold}`);
 
     // Update Belt icons
-    for (let i = 0; i < 8; i++) {
-      const item = this.paperdoll.belt[i];
-      const slot = this.beltSlotSprites[i];
-      if (slot.icon) {
-        slot.icon.destroy();
-        slot.icon = undefined;
-      }
-      if (item) {
-        slot.icon = this.add.sprite(slot.bg.x, slot.bg.y, item.icon).setDisplaySize(24, 24);
+    if (this.paperdoll && this.beltSlotSprites) {
+      for (let i = 0; i < 8; i++) {
+        const item = this.paperdoll.belt[i];
+        const slot = this.beltSlotSprites[i];
+        if (slot) {
+          if (slot.icon) {
+            slot.icon.destroy();
+            slot.icon = undefined;
+          }
+          if (item) {
+            slot.icon = this.add.sprite(slot.bg.x, slot.bg.y, item.icon).setDisplaySize(24, 24);
+          }
+        }
       }
     }
   }
@@ -462,6 +486,8 @@ export class UIScene extends Phaser.Scene {
   private inventoryVisualItems: Phaser.GameObjects.GameObject[] = [];
 
   public refreshInventoryUI(): void {
+    if (!this.inventory || !this.inventoryWindow) return;
+
     // Remove previous item visuals
     this.inventoryVisualItems.forEach(i => i.destroy());
     this.inventoryVisualItems = [];
@@ -626,7 +652,7 @@ export class UIScene extends Phaser.Scene {
   }
 
   public refreshCharSheet(): void {
-    if (!this.stats) return;
+    if (!this.stats || !this.charTexts || !this.charTexts.nameClass) return;
 
     this.charTexts.nameClass.setText(`${this.stats.name} (Lvl ${this.stats.level} ${this.stats.classType})`);
 
