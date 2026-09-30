@@ -6,6 +6,9 @@ A classic dark fantasy Action Role-Playing Game (ARPG) inspired by the original 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)
 ![Vite](https://img.shields.io/badge/Vite-6.2-purple.svg)
 ![Vitest](https://img.shields.io/badge/Vitest-5.0-green.svg)
+[![Deploy to GitHub Pages](https://github.com/arron21/diablo-phaser-arpg/actions/workflows/deploy.yml/badge.svg)](https://github.com/arron21/diablo-phaser-arpg/actions/workflows/deploy.yml)
+
+### 🎮 **[Play Live in Browser](https://arron21.github.io/diablo-phaser-arpg/)**
 
 ---
 
